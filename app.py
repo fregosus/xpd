@@ -269,6 +269,23 @@ with st.spinner("Procesando datos..."):
 df_op   = pd.DataFrame(results)
 df_team = pd.DataFrame(team_results)
 
+# ── Celebración confeti ───────────────────────────────────────────────────────
+estrellas = [r for r in results if r["Score"] >= 0.98]
+if estrellas:
+    st.balloons()
+    with st.container():
+        nombres = "  ·  ".join([f"🏆 {r['Operativo']}" for r in estrellas])
+        st.markdown(f"""
+        <div style="background:linear-gradient(135deg,#0f172a,#1e3a5f);
+                    border-radius:16px;padding:24px 32px;margin-bottom:16px;
+                    border:2px solid #facc15;text-align:center">
+          <div style="font-size:28px;margin-bottom:8px">🎉 ¡Move the Cash Stars! 🎉</div>
+          <div style="color:#facc15;font-size:13px;font-weight:700;
+                      letter-spacing:1px;margin-bottom:12px">
+            SCORE ≥ 98% · EXCELENCIA EN FACTURACIÓN</div>
+          <div style="color:white;font-size:14px;line-height:2">{nombres}</div>
+        </div>""", unsafe_allow_html=True)
+
 # ── Filters (sidebar) ─────────────────────────────────────────────────────────
 st.sidebar.markdown("## 🔍 Filtros")
 teams_list = sorted(df_op["Equipo"].unique())
